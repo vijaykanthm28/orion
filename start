@@ -1,0 +1,6 @@
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd ./module/orionode/
+echo 'workspace='$DIR >>./orion.conf
+echo 'pwd=megam'      >>./orion.conf
+npm install
+node ./server.js
