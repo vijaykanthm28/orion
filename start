@@ -1,6 +1,6 @@
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd ./module/orionode/
-echo 'workspace='$DIR >>./orion.conf
-echo 'pwd=megam'      >>./orion.conf
-npm install
-node ./server.js
+#! /bin/bash
+CWD='/var/lib/megam/gulp/meta/orion-client/'
+DIR='/var/lib/megam/gulp/meta/orion-client/modules/orionode'
+echo 'workspace='$CWD >>$DIR/orion.conf
+echo 'pwd=megam'      >>$DIR/orion.conf
+node $DIR/server.js
