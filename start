@@ -3,4 +3,4 @@ CWD='/var/lib/megam/gulp/meta/orion-client/'
 DIR='/var/lib/megam/gulp/meta/orion-client/modules/orionode'
 echo 'workspace='$CWD >>$DIR/orion.conf
 echo 'pwd=megam'      >>$DIR/orion.conf
-node $DIR/server.js
+#node $DIR/server.js
