@@ -3,4 +3,43 @@ CWD='/var/lib/megam/gulp/meta/orion-client/'
 DIR='/var/lib/megam/gulp/meta/orion-client/modules/orionode'
 echo 'workspace='$CWD >>$DIR/orion.conf
 echo 'pwd=megam'      >>$DIR/orion.conf
-#node $DIR/server.js
+mkdir -p /var/log/megam/orion-client
+cd $DIR; npm install
+cat > /etc/init/orion.conf <<EOF
+
+description "Megam engine(https://console.megam.io)"
+author "Megam Systems(https://www.megam.io)"
+
+# When to start the servicee
+start on runlevel [2345]
+start on (started networking)
+start on (local-filesystems)
+
+# When to stop the service
+stop on runlevel [016]
+stop on (stopping networking)
+stop on (stopped orion)
+
+# Automatically restart process if crashed. Tries 0 times every 60 seconds
+respawn
+respawn limit 0 60
+
+# set the working directory of the job processes
+#chdir /var/lib/megam/gulp/
+
+
+
+# start the cibd seed
+script
+  echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) orion-client starting" >> /var/log/megam/orion-client/orion.log
+  exec node $DIR/server.js  >> /var/log/megam/orion-client/orion.log 2>&1
+end script
+
+post-start script
+    PID=`status orion | egrep -oi '([0-9]+)$' | head -n1`
+    echo $PID > /var/run/megam/orion-client.pid
+end script
+
+EOF
+chmod 755 /etc/init/orion.conf
+start orion
