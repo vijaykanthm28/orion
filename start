@@ -1,7 +1,7 @@
 #! /bin/bash
 CWD='/var/lib/megam/gulp/meta/orion-client/'
 DIR='/var/lib/megam/gulp/meta/orion-client/modules/orionode'
-echo 'workspace='$CWD >>$DIR/orion.conf
+echo 'workspace='$CWD >$DIR/orion.conf
 echo 'pwd=megam'      >>$DIR/orion.conf
 mkdir -p /var/log/megam/orion-client
 cd $DIR; npm install
@@ -36,8 +36,7 @@ script
 end script
 
 post-start script
-    PID=`status orion | egrep -oi '([0-9]+)$' | head -n1`
-    echo $PID > /var/run/megam/orion-client.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" >> /var/log/megam/orion-client/orion.log
 end script
 
 EOF
