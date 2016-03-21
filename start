@@ -1,6 +1,6 @@
 #! /bin/bash
-CWD='/var/lib/megam/gulp/meta/orion-client/'
-DIR='/var/lib/megam/gulp/meta/orion-client/modules/orionode'
+CWD='/var/lib/megam/gulp/orion/'
+DIR='/var/lib/megam/gulp/orion/modules/orionode'
 echo 'workspace='$CWD >$DIR/orion.conf
 echo 'pwd=megam'      >>$DIR/orion.conf
 mkdir -p /var/log/megam/orion-client
